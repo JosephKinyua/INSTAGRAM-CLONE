@@ -1,3 +1,20 @@
 h1 {
     color: green;
 }
+
+.panel {
+    background-color: rgb(255, 228, 196, 0.9);
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 18px;
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    -ms-border-radius: 18px;
+    -o-border-radius: 18px;
+}
+
+.container {
+    background-image: url(../images/instagram.jpeg);
+    padding: 10px;
+    background-repeat: no-repeat;
+}
