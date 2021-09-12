@@ -10,3 +10,8 @@ class Profile(models.Model):
     bio = HTMLField(null=True, blank=True)
 
 class Post(models.Model):
+    picture = models.ImageField(upload_to='photos/')
+    caption = models.CharField(max_length=3000)
+    uploadedBy = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    posted = models.DateTimeField(auto_now_add=True)
