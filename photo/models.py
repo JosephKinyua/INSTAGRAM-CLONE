@@ -8,3 +8,5 @@ class Profile(models.Model):
     fullName= models.CharField(max_length=255, null=True)
     username = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = HTMLField(null=True, blank=True)
+
+class Post(models.Model):
