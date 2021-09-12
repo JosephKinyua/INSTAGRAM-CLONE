@@ -15,5 +15,8 @@ class Post(models.Model):
     uploadedBy = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     posted = models.DateTimeField(auto_now_add=True)
-    
+
 class Comments(models.Model):
+    comment = models.CharField(max_length=200, null=True, blank=True)
+    pic = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
