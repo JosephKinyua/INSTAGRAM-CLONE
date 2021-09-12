@@ -9,6 +9,9 @@ class Profile(models.Model):
     username = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = HTMLField(null=True, blank=True)
 
+    def __str__(self):
+        return self.username
+
 class Post(models.Model):
     picture = models.ImageField(upload_to='photos/')
     caption = models.CharField(max_length=3000)
