@@ -18,3 +18,7 @@ h1 {
     padding: 10px;
     background-repeat: no-repeat;
 }
+
+p {
+    color: red;
+}
