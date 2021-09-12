@@ -15,3 +15,5 @@ class Post(models.Model):
     uploadedBy = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     posted = models.DateTimeField(auto_now_add=True)
+    
+class Comments(models.Model):
