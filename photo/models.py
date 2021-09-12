@@ -24,7 +24,9 @@ class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.caption
+        return self.caption 
+    def save_picture(self):
+        self.save()
 
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
