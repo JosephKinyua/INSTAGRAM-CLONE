@@ -35,6 +35,24 @@ class Post(models.Model):
     def save_picture(self):
         self.save()
 
+    @classmethod
+    def delete_picture(cls, id):
+        cls.objects.filter(id=id).delete()
+
+    @classmethod
+    def update_caption(cls, id, caption):
+        cls.objects.filter(id=id).update(caption = caption)
+
+    @classmethod
+    def user_pictures(cls, username):
+        pics = cls.objects.filter(uploadedBy__username = username)
+        return pics
+
+    @classmethod
+    def all_pictures(cls):
+        all_pics = cls.objects.all()
+        return all_pics
+
 class Comments(models.Model):
     comment = models.CharField(max_length=200, null=True, blank=True)
     pic = models.ForeignKey(Post, on_delete=models.CASCADE)
