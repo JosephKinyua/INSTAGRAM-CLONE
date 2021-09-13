@@ -1,5 +1,5 @@
 from django.http  import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Post
 
@@ -16,4 +16,6 @@ def home(request):
             comment.user = request.user
             comment.pic = pic
             comment.save()
+
+        return redirect('/#image'+str(pic_id))
     return render(request,'home.html',{'likeform':likeform,'commentForm':commentForm})
