@@ -30,15 +30,24 @@ class Post(models.Model):
     uploadedBy = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     posted = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.caption 
+    def save_picture(self):
+        self.save()
+
 class Comments(models.Model):
     comment = models.CharField(max_length=200, null=True, blank=True)
     pic = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.caption 
-    def save_picture(self):
+    def save_comment(self):
         self.save()
+
+    @classmethod
+    def delete_comment(cls, id):
+        cls.objects.filter(id=id).delete()
+
+
 
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
