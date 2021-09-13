@@ -12,7 +12,8 @@ def home(request):
         if commentForm.is_valid():
             pic_id = int(request.POST.get('imageid'))
             pic = Post.objects.get(id=pic_id)
-            com = commentForm.save(commit=False)
-            com.user = request.user
-            com.pic = pic
-            com.save()
+            comment = commentForm.save(commit=False)
+            comment.user = request.user
+            comment.pic = pic
+            comment.save()
+    return render(request,'home.html',{'likeform':likeform,'commentForm':commentForm})
