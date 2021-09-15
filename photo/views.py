@@ -60,3 +60,20 @@ def post_pic(request):
 
   postForm = PostPicForm()
   return render(request, 'profile/postpic.html', {'postForm':postForm, 'user':request.user})
+
+def imagedetails(request, id):
+  if request.method == 'POST':
+    commentForm = CommentForm(request.POST)
+    if commentForm.is_valid():
+      pic_id = int(request.POST.get('imageid'))
+      pic = Post.objects.get(id=pic_id)
+      com = commentForm.save(commit=False)
+      com.user = request.user
+      com.pic = pic
+      com.save()
+    return redirect('imagedetails', id=id)
+
+  commentForm = CommentForm(request.POST)
+  pic = Post.objects.get(id = id)
+  allcomments = Comments.objects.all()
+  return render(request, 'imagedetails.html', {'specificpic':pic, 'commentForm':commentForm, 'allcomments':allcomments})
