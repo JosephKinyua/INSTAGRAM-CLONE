@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Post, Profile,Comments
-from .forms import UserForm, ProfileForm,CommentForm, LikeForm
+from .forms import UserForm, ProfileForm,CommentForm, LikeForm,PostPicForm
 from django.contrib import messages
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.models import User
@@ -29,6 +29,7 @@ def home(request):
   likeform = LikeForm()
   allcomments = Comments.objects.all()
   return render(request, 'home.html', {'title': title, 'allpics':allpics, 'commentForm':commentForm, 'allcomments':allcomments, 'likeform':likeform})
+#profile view
 @login_required(login_url='accounts/login')
 def profile(request):
   if request.method == 'POST':
@@ -45,3 +46,17 @@ def profile(request):
   profile_form = ProfileForm(instance=request.user)
   user_pics = Post.user_pictures(request.user.username)
   return render(request, 'profile/home.html', {'title':title, "user":request.user, "user_form":user_form, 'profile_form':profile_form, 'user_pics':user_pics})
+#post picture view
+@login_required(login_url='accounts/login')
+def post_pic(request):
+  if request.method == 'POST':
+    postForm = PostPicForm(request.POST, request.FILES)
+    if postForm.is_valid():
+      pic = postForm.save(commit=False)
+      pic.uploadedBy = request.user
+      pic.save()
+      messages.success(request, 'Image Uploaded successfully')
+    return redirect('uprofile')
+
+  postForm = PostPicForm()
+  return render(request, 'profile/postpic.html', {'postForm':postForm, 'user':request.user})
