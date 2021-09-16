@@ -77,3 +77,23 @@ def imagedetails(request, id):
   pic = Post.objects.get(id = id)
   allcomments = Comments.objects.all()
   return render(request, 'imagedetails.html', {'specificpic':pic, 'commentForm':commentForm, 'allcomments':allcomments})
+
+
+def userprofile(request, id):
+  try:
+    user = Profile.objects.get(id = id)
+    user_pics = Post.user_pictures(user.username)
+    followers = User.objects.get(username = request.user.username).follower.all()
+    
+    foll_list = [follower.following.id for follower in followers]
+    if request.user.id in foll_list:
+      is_following = True
+    else:
+      is_following = False
+    if request.user.username == str(user.username):
+      return redirect('uprofile')
+    else:
+      using_user = User.objects.get(username = user.username)
+      return render(request, 'userprofile.html', {'using_user': using_user,'userprofile':user, 'user_pics':user_pics, "is_following": is_following})
+  except Profile.DoesNotExist:
+    return HttpResponseRedirect(', Sorry the Page You Looking For Doesnt Exist.')
