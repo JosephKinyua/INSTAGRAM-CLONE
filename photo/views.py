@@ -97,3 +97,11 @@ def userprofile(request, id):
       return render(request, 'userprofile.html', {'using_user': using_user,'userprofile':user, 'user_pics':user_pics, "is_following": is_following})
   except Profile.DoesNotExist:
     return HttpResponseRedirect(', Sorry the Page You Looking For Doesnt Exist.')
+
+def searchUser(request):
+  if 'search' in request.GET and request.GET['search']:
+    search_term = request.GET.get('search')
+    searchprofiles = Profile.searchProfile(search_term)
+    return render(request, 'search.html', {'searchresults':searchprofiles})
+  else:
+    return redirect('/')

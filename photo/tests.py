@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class TestLocation(TestCase):
   def setUp(self):
-    self.location = Location(location='Machakos')
+    self.location = Location(location='Nyandarua')
     self.location.save()
 
   def TearDown(self):
@@ -32,30 +32,13 @@ class TestLocation(TestCase):
     updated_one = Location.objects.get(id=self.location.id)
     self.assertEqual(updated_one.location, 'Mombasa')
 
-class TestProfile(TestCase):
-  def setUp(self):
-    self.new_user = User(username = "joseph", email = "kinyuajoseph2014@gmail.com",password = "joseph1234")
-    self.new_user.save()
 
-  def tearDown(self):
-    Profile.objects.all().delete()
-    User.objects.all().delete()
-
-  def test_isinstance(self):
-    self.assertTrue(isinstance(self.new_user.profile, Profile))
-
-  def test_searchProfile(self):
-    search = 'joseph'
-    self.new_user2 = User(username = "josephkinyua", email = "kinyuajoseph788@gmail.com",password = "wanstop2014")
-    self.new_user2.save()
-    image_search = Profile.searchProfile(search)
-    self.assertTrue(len(image_search) == 1)
 
 class TestPost(TestCase):
   def setUp(self):
-    self.location = Location(location='Machakos')
+    self.location = Location(location='Nyandarua')
     self.location.save()
-    self.new_user = User(username = "joseph")
+    self.new_user = User(username = "JosephKinyua")
     self.new_user.save()
     self.new_post = Post(picture='test.jpg',caption = 'this is amazing' , uploadedBy = self.new_user, location=self.location)
     self.new_post.save_picture()

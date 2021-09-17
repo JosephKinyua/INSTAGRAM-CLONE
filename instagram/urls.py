@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('photo.urls')),
     path('accounts/register/',
-        RegistrationView.as_view(success_url='/'),
+        RegistrationView.as_view(success_url='/accounts/login'),
         name='django_registration_register'),
     path('accounts/login/',LoginView.as_view(template_name='django_registration/login.html')),
 
